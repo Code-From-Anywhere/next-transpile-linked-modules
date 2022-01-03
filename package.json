@@ -1,6 +1,6 @@
 {
   "name": "next-transpile-linked-modules",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Make next-transpile-modules work with linked modules, and make fast refresh work too",
   "main": "index.js",
   "scripts": {
