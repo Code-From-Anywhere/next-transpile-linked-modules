@@ -20,7 +20,7 @@ In `.env.local` (only if you have stuff linked):
 In your `next.config.js`:
 
 ```
-const withLinks = require("next-tarnspile-linked-modules")(transpilables);
+const withLinks = require("next-transpile-linked-modules")(transpilables);
 
 module.exports = withTM(withLinks({ ... }));
 ```
