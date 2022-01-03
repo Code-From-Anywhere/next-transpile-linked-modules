@@ -1,3 +1,5 @@
+const path = require("path");
+
 const withLinksCreator = (linkableModules) => (nextConfig) => {
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
@@ -34,3 +36,5 @@ const withLinksCreator = (linkableModules) => (nextConfig) => {
     },
   });
 };
+
+module.exports = withLinksCreator;
