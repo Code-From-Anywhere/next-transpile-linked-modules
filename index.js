@@ -3,6 +3,10 @@ const path = require("path");
 const withLinksCreator = (linkableModules) => (nextConfig) => {
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
+      if (typeof nextConfig.webpack === "function") {
+        config = Object.assign({}, nextConfig.webpack(config, options));
+      }
+
       if (options.isServer) {
         config.externals = ["react", ...config.externals];
       }
@@ -13,22 +17,20 @@ const withLinksCreator = (linkableModules) => (nextConfig) => {
         };
       }
 
+      const aliases = [...linkableModules, "react", "react-dom"].reduce(
+        (previous, module) => {
+          return {
+            ...previous,
+            [module]: path.resolve(__dirname, "../..", "node_modules", module),
+          };
+        },
+        {}
+      );
+
       config.resolve.alias = {
         ...config.resolve.alias,
-        ...[...linkableModules, "react", "react-dom"].reduce(
-          (previous, module) => {
-            return {
-              ...previous,
-              [module]: path.resolve(__dirname, ".", "node_modules", module),
-            };
-          },
-          {}
-        ),
+        ...aliases,
       };
-
-      if (typeof nextConfig.webpack === "function") {
-        config = nextConfig.webpack(config, options);
-      }
 
       return config;
     },
