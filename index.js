@@ -1,6 +1,8 @@
 const path = require("path");
 
-const withLinksCreator = (linkableModules) => (nextConfig) => {
+const withLinksCreator = (linkableModules, settings) => (nextConfig) => {
+  const debug = settings && settings.debug;
+
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
       if (typeof nextConfig.webpack === "function") {
@@ -37,6 +39,14 @@ const withLinksCreator = (linkableModules) => (nextConfig) => {
           ...config.resolve.alias,
           ...aliases,
         };
+
+        if (debug) {
+          console.log({ allAliases: config.resolve.alias });
+        }
+      } else {
+        if (debug) {
+          console.log(`Env parameter NEED_TRANSPILE_LINK_MODULES not found`);
+        }
       }
 
       return config;
