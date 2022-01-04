@@ -26,7 +26,8 @@ const withLinksCreator = (linkableModules, settings) => (nextConfig) => {
               ...previous,
               [module]: path.resolve(
                 __dirname,
-                "../..",
+                ".",
+                // "../..",
                 "node_modules",
                 module
               ),
