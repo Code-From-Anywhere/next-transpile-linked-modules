@@ -20,7 +20,12 @@ In `.env.local` (only if you have stuff linked):
 In your `next.config.js`:
 
 ```
-const withLinks = require("next-transpile-linked-modules")(transpilables);
+const withLinks = require("next-transpile-linked-modules")(transpilables, {
+  // put on true if you want to see the exact paths that are resolved and more debug info
+  debug: false,
+  // needed if you link it so we know the location of the project and its node_modules folder
+  projectDirectory: __dirname,
+});
 
 module.exports = withTM(withLinks({ ... }));
 ```
