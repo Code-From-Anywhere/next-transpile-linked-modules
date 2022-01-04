@@ -2,7 +2,7 @@ const path = require("path");
 
 const withLinksCreator = (linkableModules, settings) => (nextConfig) => {
   const debug = settings && settings.debug;
-
+  const projectDirectory = settings && settings.projectDirectory;
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
       if (typeof nextConfig.webpack === "function") {
@@ -25,9 +25,8 @@ const withLinksCreator = (linkableModules, settings) => (nextConfig) => {
             return {
               ...previous,
               [module]: path.resolve(
-                __dirname,
-                ".",
-                // "../..",
+                projectDirectory || __dirname,
+                projectDirectory ? "." : "../..",
                 "node_modules",
                 module
               ),
