@@ -36,8 +36,8 @@ const withLinksCreator = (linkableModules, settings) => (nextConfig) => {
         );
 
         config.resolve.alias = {
-          ...config.resolve.alias,
           ...aliases,
+          ...config.resolve.alias,
         };
 
         if (debug) {
